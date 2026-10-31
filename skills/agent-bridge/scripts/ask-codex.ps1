@@ -10,7 +10,8 @@ param(
   [string]$Cd = (Get-Location).Path,
   [ValidateSet('read-only', 'workspace-write', 'danger-full-access')][string]$Sandbox = 'workspace-write',
   [string[]]$Image = @(),
-  [string]$Model
+  [string]$Model,
+  [ValidateSet('', 'minimal', 'low', 'medium', 'high', 'xhigh')][string]$Effort = ''
 )
 . (Join-Path $PSScriptRoot 'lib.ps1')
 if ($PromptFile) { $Prompt = [IO.File]::ReadAllText((Resolve-Path $PromptFile).Path) }
@@ -29,6 +30,7 @@ $claudeHome = Join-Path $env:USERPROFILE '.claude'
 $common += @('-c', "sandbox_workspace_write.writable_roots=['$($BridgeHome -replace '\\','/')','$($claudeHome -replace '\\','/')']",
              '-c', 'sandbox_workspace_write.network_access=true')
 if ($Model) { $common += @('-m', $Model) }
+if ($Effort) { $common += @('-c', "model_reasoning_effort='$Effort'") }
 foreach ($i in $Image) { $common += @('-i', (Resolve-Path $i).Path) }
 $cliArgs = if ($state.codex) { @('exec', 'resume') + $common + @($state.codex, '-') } else { @('exec', '-C', $Cd) + $common + @('-') }
 

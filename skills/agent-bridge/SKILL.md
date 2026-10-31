@@ -11,7 +11,7 @@ Claude Code and Codex hand work to each other on named threads. The scripts are 
 2. Run the script for the *other* agent (allow 1–5 minutes; run it in the background if longer):
 
    - You are Claude Code, asking Codex:
-     `powershell -ExecutionPolicy Bypass -File <this skill>\scripts\ask-codex.ps1 -Thread <name> -PromptFile <file> [-Cd <repo>] [-Sandbox read-only]`
+     `powershell -ExecutionPolicy Bypass -File <this skill>\scripts\ask-codex.ps1 -Thread <name> -PromptFile <file> [-Cd <repo>] [-Sandbox read-only] [-Model <id>] [-Effort low|medium|high|xhigh]`
    - You are Codex, asking Claude Code:
      `powershell -ExecutionPolicy Bypass -File <this skill>\scripts\ask-claude.ps1 -Thread <name> -PromptFile <file> [-Cd <repo>] [-PermissionMode plan]`
 
