@@ -5,7 +5,7 @@ description: Hand work to the other coding agent (Claude Code or Codex) and get 
 
 # Agent bridge
 
-Claude Code and Codex hand work to each other on named threads. The scripts are in this skill's `scripts` folder and need PowerShell plus both CLIs logged in for headless use (`codex login`; `claude`, then `/login`).
+Claude Code and Codex hand work to each other on named threads. The scripts are in this skill's `scripts` folder and need PowerShell plus both CLIs logged in for headless use (`codex login`; `claude`, then `/login`). On Windows run them with `powershell -ExecutionPolicy Bypass -File`; on Linux with `pwsh -File`.
 
 1. Write the brief to a UTF-8 file. The other agent sees only the brief and the files in `-Cd`.
 2. Run the script for the *other* agent (allow 1–5 minutes; run it in the background if longer):

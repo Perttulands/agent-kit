@@ -19,14 +19,14 @@ if (-not $Prompt) { throw 'Give -Prompt or -PromptFile' }
 $OutputEncoding = [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
 
 $state = Get-BridgeThread $Thread
-$imgRoot = Join-Path $(if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $env:USERPROFILE '.codex' }) 'generated_images'
+$imgRoot = Join-Path $(if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }) 'generated_images'
 $before = @{}
 if (Test-Path $imgRoot) { Get-ChildItem $imgRoot -Recurse -File | ForEach-Object { $before[$_.FullName] = 1 } }
 
 $common = @('--json', '--skip-git-repo-check', '-c', "sandbox_mode=`"$Sandbox`"")
 # Let Codex call back (ask-claude.ps1): the bridge state and ~/.claude must be writable, and Claude needs network.
 # TOML literal strings ('...') because PowerShell 5.1 drops inner double quotes on native calls.
-$claudeHome = Join-Path $env:USERPROFILE '.claude'
+$claudeHome = Join-Path $HOME '.claude'
 $common += @('-c', "sandbox_workspace_write.writable_roots=['$($BridgeHome -replace '\\','/')','$($claudeHome -replace '\\','/')']",
              '-c', 'sandbox_workspace_write.network_access=true')
 if ($Model) { $common += @('-m', $Model) }
