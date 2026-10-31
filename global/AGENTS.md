@@ -3,7 +3,6 @@
 Global instructions for every agent session (Claude Code, Codex), on any machine or in the cloud. They come from agent-kit; repositories add their own `AGENTS.md`, which wins on project matters.
 
 ## How to work
-- Act, don't ask, when a choice is cheap to reverse. For real decisions, lay out the options and recommend one; don't assume the user already knows what they want.
 - Never use the multiple-choice question tool. Ask in plain text, at most one question at a time.
 - Keep chat short. Results, decisions needed, next step. No recaps of what you did.
 - Verify before claiming: run the test, open the file, check the output.
