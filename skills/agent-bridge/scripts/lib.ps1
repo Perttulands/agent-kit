@@ -15,12 +15,13 @@ function Get-BridgeThreads {
 
 function Get-BridgeThread([string]$Name) {
   $all = Get-BridgeThreads
-  if ($all.$Name) { $all.$Name } else { [pscustomobject]@{ codex = $null; claude = $null } }
+  if ($all.$Name) { $all.$Name } else { [pscustomobject]@{ codex = $null; claude = $null; pi = $null } }
 }
 
 function Set-BridgeThread([string]$Name, [string]$Side, [string]$Id) {
   $all = Get-BridgeThreads
-  if (-not $all.$Name) { $all | Add-Member -NotePropertyName $Name -NotePropertyValue ([pscustomobject]@{ codex = $null; claude = $null }) }
+  if (-not $all.$Name) { $all | Add-Member -NotePropertyName $Name -NotePropertyValue ([pscustomobject]@{ codex = $null; claude = $null; pi = $null }) }
+  if (-not $all.$Name.PSObject.Properties[$Side]) { $all.$Name | Add-Member -NotePropertyName $Side -NotePropertyValue $null }
   $all.$Name.$Side = $Id
   [IO.File]::WriteAllText($ThreadsPath, ($all | ConvertTo-Json -Depth 5))
 }
